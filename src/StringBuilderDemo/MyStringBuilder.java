@@ -3,18 +3,27 @@ package StringBuilderDemo;
 class MyStringBuilder{
 	private int len;
 	private String s;
+	private char [] chars;
 	private int capacity;
 	MyStringBuilder(){
 		this.s="";
 		this.capacity=16;
 		this.len=0;
+		this.chars=new char[this.capacity];
 	}
 	MyStringBuilder(String s){
 		this.s=s;
 		this.len=s.length();
 		this.capacity=16+s.length();
 	}
-	
+	void setCapacity(int newCapacity) {
+		char []oldChars=this.chars;
+		this.chars=new char[newCapacity];
+		for(int i=0; i<Math.min(newCapacity,this.capacity); i++) {
+			this.chars[i]=oldChars[i];
+		}
+		this.capacity=newCapacity;
+	}
 	void insert(int idx, String s) {
 		int j=0;
 		char []sArr=new char[this.len+s.length()];
